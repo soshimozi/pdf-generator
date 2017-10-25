@@ -1,10 +1,13 @@
 export default class {
-    constructor($location, $http) {
+    constructor($location, $http, $sce, $timeout) {
         this.$location = $location;
         this.$http = $http;
+	    this.$sce = $sce;
+        this.$timeout = $timeout;
 
         this.pdfText = "";
         this.pdfTitle = "";
+        this.content = null;
     }
 
     submit() {
@@ -14,17 +17,12 @@ export default class {
             text: this.pdfText
         };
 
-        this.$http.post("/pdf", postData, {responseType:'arraybuffer'}).then(
-            function(response){
-                var file = new Blob([response.data], {type: 'application/pdf'});
-                var fileURL = URL.createObjectURL(file);
-                window.open(fileURL);
-            }, 
-            function(response){
-              // failure callback
-              console.log('failure: ', response);
-            }
-         );
+        this.$http.post("/pdf", postData, {responseType:'arraybuffer'}).then( (response) => {
+            var file = new Blob([response.data], {type: 'application/pdf'});
+            var fileURL = URL.createObjectURL(file, 'myfile');
 
+            this.active = 1;
+            this.content = this.$sce.trustAsResourceUrl(fileURL);
+        });		
     }
 }

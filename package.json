@@ -44,7 +44,7 @@
     "start": "npm-run-all -p build:development server",
     "build:production": "webpack --env.production",
     "build": "npm run build:production",
-    "server": "http-server",
+    "server": "node ./tools/server.js",
     "build:development": "webpack --env.development --colors --progress --watch"
   },
   "author": "",

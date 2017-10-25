@@ -26,7 +26,7 @@ app.post('/pdf', function(request,response) {
     if(path.extname(filename) === '')
         filename = path.join(filename, '.pdf');
 
-    response.setHeader('Content-disposition', 'attachment; filename='+filename);
+    //response.setHeader('Content-disposition', 'attachment; filename='+filename);
     
 
     pdf.create(request.body.text).toBuffer(function(err, buffer) {

@@ -1,17 +1,31 @@
-<div class="container">
-        <div class="row">
-                <div class="col-12"><label for="pdf-name">PDF Name:</label></div>
-            </div>
-            <div class="row">
-                <div class="col-12"><input id="pdf-name" ng-model="vm.pdfName"/></div>            
-            </div>
-            <div class="row">
-        <div class="col-12"><label for="pdf-text">PDF Text:</label></div>
-    </div>
-    <div class="row">
-        <div class="col-12"><textarea id="pdf-text" ng-model="vm.pdfText"></textarea></div>            
-    </div>
-    <div class="row">
-        <div class="col-12"><button class="btn btn-success" ng-click="vm.submit()">Submit</button></div>
-    </div>
-</div>
+
+<uib-tabset active="vm.active">
+	<uib-tab index="0" heading="Request PDF">
+		<div class="container">
+			<div class="row">
+				<div class="col-12"><label for="pdf-name">PDF Name:</label></div>
+			</div>
+			<div class="row">
+				<div class="col-12"><input id="pdf-name" ng-model="vm.pdfName"/></div>            
+			</div>
+			<div class="row">
+				<div class="col-12"><label for="pdf-text">PDF Text:</label></div>
+			</div>
+			<div class="row">
+				<div class="col-12"><textarea id="pdf-text" ng-model="vm.pdfText"></textarea></div>            
+			</div>
+			<div class="row">
+				<div class="col-12"><button class="btn btn-success" ng-click="vm.submit()">Submit</button></div>
+			</div>
+		</div>
+	</uib-tab>
+
+	<uib-tab index="1" heading="Results">
+		<div ng-show="vm.content === null">No Results yet</div>
+		<div ng-show="vm.content !== null">
+			<object data="{{vm.content}}" type="application/pdf" style="width:100%; height:1000px" />	
+		</div>
+	</ui-tab>
+
+</uib-tabset>
+
