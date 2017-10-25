@@ -3,6 +3,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const pdf = require('html-pdf');
 const path = require('path');
+const logger = require('morgan');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
