@@ -43,7 +43,6 @@ if(app.get('env') === 'development') {
 
     
     app.use(function(err, req, res, next) {
-        console.log('err: ', err);
         
         res.status(err.status || 500);
 
@@ -63,8 +62,6 @@ if(app.get('env') === 'development') {
 
 app.use(function(err, req, res, next) {
     res.status(err.status || 500);
-
-    console.log('err.status: ', err.status);
 
     if(err.status === 404) {
         res.render('not-found', {
