@@ -11,6 +11,7 @@ export default class {
         this.content = null;
         this.jsonText = "";
         this.jsonObject = null;
+        this.alerts = [];
     }
 
     submit() {
@@ -29,9 +30,27 @@ export default class {
         });		
     }
 
-    convertJson() {
-        this.jsonObject = JSON.parse(this.jsonText);
+    closeAlert(index) {
+        this.alerts.splice(index, 1);
     }
+
+    convertJson() {
+        try {
+        this.jsonObject = JSON.parse(this.jsonText);
+        }
+        catch(error) {
+            this.alerts.push({msg: 'Could not parse JSON object.', type:'danger'});
+        }
+        // TODO: error checking
+
+        for(var key in this.jsonObject) {
+            console.log(key + ': ', typeof(this.jsonObject[key]));
+        }
+    }
+
+    clipboardCopiedSuccess(e) {
+        this.alerts.push( {msg: 'Copied data successfully to clipboard', type:'success'})
+    }    
 
     showJsonHelper() {
         this.$uibModal.open({
@@ -44,7 +63,7 @@ export default class {
             controller: class  {
                 constructor() {
                     this.jsonText = '';
-                    this.jsonObject = {};
+                    this.jsonObject = null;
                 }
               
                 convertJson() {

@@ -3,6 +3,7 @@ const angular = require('angular');
 require('angular-route');
 require('angular-ui-bootstrap');
 require('jquery/dist/jquery');
+require('ngclipboard');
 
 import '../../node_modules/bootstrap/dist/css/bootstrap';
 import '../../node_modules/bootstrap/dist/css/bootstrap-theme';
@@ -11,7 +12,8 @@ import './styles/app.css';
 
 const app = angular.module('test-pdf-generation-app', [
     'ngRoute',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'ngclipboard'
 ]);
 
 import MainController from './controllers/main-controller';
