@@ -1,31 +1,65 @@
 
-<uib-tabset active="vm.active">
-	<uib-tab index="0" heading="Request PDF">
-		<div class="container">
-			<div class="row">
-				<div class="col-12"><label for="pdf-name">PDF Name:</label></div>
+<div class="container-fluid">
+	<uib-tabset active="vm.active">
+		<uib-tab index="0" heading="Request PDF">
+			<div class="container">
+				<div class="row">
+					<div class="col-12"><label for="pdf-name">PDF Name:</label></div>
+				</div>
+				<div class="row">
+					<div class="col-12"><input id="pdf-name" ng-model="vm.pdfName"/></div>            
+				</div>
+				<div class="row">
+					<div class="col-12"><label for="pdf-text">PDF Text:</label></div>
+				</div>
+				<div class="row">
+					<div class="col-12"><textarea id="pdf-text" ng-model="vm.pdfText"></textarea></div>            
+				</div>
+				<div class="row">
+					<div class="col col-md-6">
+						<button class="btn btn-success" ng-click="vm.submit()">Submit</button>
+					</div>
+				</div>
 			</div>
-			<div class="row">
-				<div class="col-12"><input id="pdf-name" ng-model="vm.pdfName"/></div>            
+		</uib-tab>
+		<uib-tab index="1" heading="Results">
+			<div class="container">
+				<div ng-show="vm.content === null">No Results yet</div>
+				<div ng-if="vm.content !== null">
+					<object data="{{vm.content}}" type="application/pdf" style="width:100%; height:1000px"></object>	
+				</div>
 			</div>
-			<div class="row">
-				<div class="col-12"><label for="pdf-text">PDF Text:</label></div>
-			</div>
-			<div class="row">
-				<div class="col-12"><textarea id="pdf-text" ng-model="vm.pdfText"></textarea></div>            
-			</div>
-			<div class="row">
-				<div class="col-12"><button class="btn btn-success" ng-click="vm.submit()">Submit</button></div>
-			</div>
-		</div>
-	</uib-tab>
-
-	<uib-tab index="1" heading="Results">
-		<div ng-show="vm.content === null">No Results yet</div>
-		<div ng-show="vm.content !== null">
-			<object data="{{vm.content}}" type="application/pdf" style="width:100%; height:1000px" />	
-		</div>
-	</ui-tab>
-
-</uib-tabset>
+		</uib-tab>
+		<uib-tab index="2" heading="JSON Helper">
+				<div class="container">
+						<div class="row">
+							<div class="col-12"><label for="json-text">JSON Text:</label></div>
+						</div>
+						<div class="row">
+							<div class="col-12"><input id="json-text" ng-model="vm.jsonText"/></div>            
+						</div>
+						<div class="row">
+							<div class="col-12"><button class="btn btn-default" ng-click="vm.convertJson()">Convert</button></div>
+						</div>
+						<div class="row" ng-show="vm.jsonObject !== null">
+							<div class="col-md-12">
+								<div><label>Result:</label></div>
+								<table>
+									<thead>
+										<th>Name</th>
+										<th>Value</th>
+									</thead>
+									<tbody>
+										<tr ng-repeat="(key, value) in vm.jsonObject">
+											<td style="vertical-align: top;border: 2px solid;padding:5px;">{{key}}</td>
+											<td style="vertical-align: top;border: 2px solid;padding:5px;word-break: break-all;">{{value}}</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>	
+		</uib-tab>
+	</uib-tabset>
+</div>
 
