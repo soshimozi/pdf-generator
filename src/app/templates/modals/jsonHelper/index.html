@@ -1,0 +1,22 @@
+<div class="container" style="height:400px;padding:20px !important">
+    <div class="row">
+        <div class="col-12"><label for="json-text">JSON Text:</label></div>
+    </div>
+    <div class="row">
+        <div class="col-12"><input id="json-text" ng-model="vm.jsonText"/></div>            
+    </div>
+    <div class="row">
+        <div class="col-12"><button class="btn btn-default" ng-click="vm.convertJson()">Convert</button></div>
+    </div>
+    <div class="row">
+        <div class="col-12"><label>Result:</label></div>
+        <div class="row">
+            <div class="col-md-4">Name</div>
+            <div class="col-md-8">Value</div>
+        </div>
+        <div class="row"  ng-repeat="(key, value) in vm.jsonObject">
+            <div class="col-md-4">{{key}}</div>
+            <div class="col-md-8" style="overflow-wrap: true">{{value}}</div>
+        </div>
+    </div>
+</div>	
