@@ -1,3 +1,10 @@
 public/dist
 node_modules
 .vscode
+dist/www/*.ttf
+dist/www/*.woff2
+dist/www/*.js
+dist/www/*.map
+dist/www/*.eot
+dist/www/*.woff
+dist/www/*.svg
