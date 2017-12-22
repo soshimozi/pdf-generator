@@ -1,6 +1,6 @@
 Build
 ```
 npm install
-npm run build:prod
+npm run build
 node ./tools/server.js
 ```
