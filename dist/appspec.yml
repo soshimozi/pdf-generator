@@ -6,6 +6,10 @@ files:
 permissions:
   - object: /pdf-generator/startApp.sh
     mode: 777
+  - object: /pdf-generator/stopApp.sh
+    mode: 777
+  - object: /pdf-generator/installPrerequisites.sh
+    mode: 777
 hooks:
   AfterInstall:
     - location: installPrerequisites.sh
