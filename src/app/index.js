@@ -8,16 +8,12 @@ require('ngclipboard');
 import '../../node_modules/bootstrap/dist/css/bootstrap';
 import '../../node_modules/bootstrap/dist/css/bootstrap-theme';
 import '../../node_modules/font-awesome/css/font-awesome.css';
-import '../../node_modules/textangular/dist/textAngular.css';
 import './styles/app.css';
-
-require('../../node_modules/textangular/dist/textAngular-sanitize.min.js');
 
 const app = angular.module('test-pdf-generation-app', [
     'ngRoute',
     'ui.bootstrap',
-    'ngclipboard',
-    require('textAngular')
+    'ngclipboard'
 ]);
 
 import MainController from './controllers/main-controller';
