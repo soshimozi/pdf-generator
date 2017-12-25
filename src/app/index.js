@@ -13,7 +13,8 @@ import './styles/app.css';
 const app = angular.module('test-pdf-generation-app', [
     'ngRoute',
     'ui.bootstrap',
-    'ngclipboard'
+    'ngclipboard',
+    'froala'
 ]);
 
 import MainController from './controllers/main-controller';
