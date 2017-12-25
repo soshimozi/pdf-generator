@@ -11,7 +11,7 @@ export default function(env, argv) {
         entry: './index.js',
         output: {
             filename: 'bundle.js',
-            path: path.resolve(__dirname, './dist/www')
+            path: path.resolve(__dirname, './dist/www/build')
         },
         resolve: {
             extensions: ['.js', '.css', '.html']
