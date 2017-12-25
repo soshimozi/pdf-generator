@@ -22,6 +22,11 @@
 						<button class="btn btn-danger" ng-click="vm.pdfText = ''; vm.jsonObject = null; vm.content = null;">Clear</button>
 					</div>
 				</div>
+				<div class="row">
+					<div class="col col-lg-12">
+ 						<ng-quill-editor ng-model="title" placeholder="override default placeholder" on-editor-created="editorCreated(editor)" on-content-changed="contentChanged(editor, html, text)" on-selection-changed="selectionChanged(editor, range, oldRange, source)"></ng-quill-editor>
+					</div>
+				</div>
 			</div>
 		</uib-tab>
 		<uib-tab index="1" heading="Results">
