@@ -28,11 +28,11 @@ const routes = function($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider
         .when('/', {
             template: require('../templates/main'),
-            controller: 'MainController as vm',
+            controller: 'MainController as vm'
             // resolve: {
             //     redirectIfNotAuthenticated : _redirectIfNotAuthenticated
             // }
-        });
+        })
 
     $locationProvider.html5Mode(true);
 

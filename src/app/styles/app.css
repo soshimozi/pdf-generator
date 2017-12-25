@@ -18,6 +18,11 @@
    display: block;
 }
 
+.pdf-text {
+    min-width: 400px;
+    min-height: 200px;    
+}
+
 ng-quill-editor.ng-invalid .ql-container {
     border: 1px dashed red;
 }

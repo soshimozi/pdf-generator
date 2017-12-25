@@ -1,5 +1,4 @@
 const quillEditor = function() {
-    console.log('quillEditor functino called');
     
     return {
     bindings: {
@@ -34,8 +33,6 @@ const quillEditor = function() {
       var editorChanged = false
       var editor
       var placeholder = ngQuillConfig.placeholder
-
-      console.log('ngQuilltoolbar controller');
 
       this.validate = function (text) {
         if (this.maxLength) {
