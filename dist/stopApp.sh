@@ -1,1 +1,1 @@
-node index.jsh stop
+node index.js stop
