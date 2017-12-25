@@ -11,15 +11,8 @@ permissions:
   - object: /pdf-generator/installPrerequisites.sh
     mode: 777
 hooks:
-  ApplicationStop:
-    - location: installPrerequisites.sh
-      timeout: 300
+  ApplicationStart:
     - location: stopApp.sh
       timeout: 10
-  AfterInstall:
-    - location: installPrerequisites.sh
-      timeout: 300
-  ApplicationStart:
     - location: startApp.sh
       timeout: 10
-      
