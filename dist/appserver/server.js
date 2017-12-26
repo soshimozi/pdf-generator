@@ -39,6 +39,13 @@ app.post('/pdf', function(request,response) {
     
 
     pdf.create(request.body.text).toBuffer(function(err, buffer) {
+
+        if(err) {
+            console.log("error:",err);
+            response.statusCode = 500;
+            response.write("Could not create pdf.");
+            return response.end();
+        }
         response.write(buffer);
         response.end();
     });
