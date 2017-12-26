@@ -1,0 +1,100 @@
+
+<div uib-alert ng-repeat="alert in vm.alerts" ng-class="'alert-' + (alert.type || 'warning')" dismiss-on-timeout="2500" close="vm.closeAlert($index)" style="position: fixed;top: 0; left: 0;z-index:999;width:100%;">{{alert.msg}}</div>
+<div class="container-fluid">
+	<uib-tabset active="vm.active">
+		<uib-tab index="0" heading="Request PDF">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col col-lg-1"></div>
+					<div class="col col-lg-8"><label for="pdf-name">File Name:</label></div>
+				</div>
+				<div class="row">
+					<div class="col col-lg-1"></div>
+					<div class="col col-lg-8"><input style="min-width:400px;" id="pdf-name" ng-model="vm.pdfName"/></div>            
+				</div>
+				<div class="row">
+					<div class="col col-lg-1"></div>
+					<div class="col col-lg-8"><label for="pdf-text">HTML Text:</label></div>
+				</div>
+				<div class="row">
+					<div class="col col-lg-1"></div>
+					<div class="col col-lg-8"><textarea class="pdf-text" id="pdf-text" ng-model="vm.pdfText"></textarea></div>            
+				</div>
+				<div class="row">
+					<div class="col-lg-1"></div>
+					<div class="col col-md-6">
+						<button class="btn btn-success" ng-click="vm.submit()">Submit</button>
+						<button class="btn btn-danger" ng-click="vm.pdfText = ''; vm.jsonObject = null; vm.content = null;">Clear</button>
+					</div>
+				</div>
+			</div>
+		</uib-tab>
+		<uib-tab index="1" heading="Results">
+			<div class="container-fluid">
+				<div ng-show="vm.content === null">No Results yet</div>
+				<div ng-if="vm.content !== null">
+					<object data="{{vm.content}}" type="application/pdf" style="width:100%; height:1000px"></object>	
+				</div>
+			</div>
+		</uib-tab>
+		<uib-tab index="2" heading="JSON Helper">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-12"><label for="json-text">JSON Text:</label></div>
+				</div>
+				<div class="row">
+					<div class="col-12"><input id="json-text" ng-model="vm.jsonText"/></div>            
+				</div>
+				<div class="row">
+					<div class="col-md-12" style="margin-top:10px;">
+						<button class="btn btn-default" ng-click="vm.convertJson()">Convert</button>
+					</div>
+				</div>
+				<div class="row" ng-show="vm.jsonObject !== null" style="margin-top:20px;">
+					<div class="col-md-12">
+						<label for="properties">Select Property to Copy</label>
+						<select ng-options="value as key for (key , value) in vm.jsonObject" ng-model="vm.selectedValue"></select>
+						<button ngclipboard-success="vm.clipboardCopiedSuccess(e)" ngclipboard data-clipboard-text="{{vm.selectedValue}}" class="btn btn-success">Copy To Clipboard <i class="fa fa-clipboard"></i></button>
+					</div>
+				</div>
+				<div class="row" ng-show="vm.jsonObject !== null" style="margin-top:5px;">
+					<div class="col-md-12">
+						<div style="background-color:darkslategray;color:white;width:100%;padding:5px;"><label>Results</label></div>
+						<table>
+							<thead style="background-color:cadetblue;color:white;">
+								<th style="border:2px solid black;padding:5px;">Property</th>
+								<th style="border:2px solid black;padding:5px;">Value</th>
+							</thead>
+							<tbody>
+								<tr ng-repeat="(key, value) in vm.jsonObject">
+									<td style="vertical-align: top;border: 2px solid;padding:5px;">{{key}}</td>
+									<td style="vertical-align: top;border: 2px solid;padding:5px;word-break: break-all;"><span ng-attr-id="{{'json' + key}}">{{value}}</span></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>	
+		</uib-tab>
+		<uib-tab index="3" heading="HTML Editor">
+			<div class="container-fluid" style="margin-top:5px">
+				<div class="row">
+					<div class="col-lg-8">
+ 						<ng-quill-editor ng-model="vm.htmlText"></ng-quill-editor>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-8">
+						<div style="margin-bottom:5px;"></div>
+        				<pre><code id='code'>{{vm.htmlText}}</code></pre>						
+						<button class="btn" ngclipboard data-clipboard-target="#code">
+    						Copy To Clipboard
+						</button>
+					</div>
+				</div>
+			</div>
+		</uib-tab>
+	</uib-tabset>
+</div>
+	
+	
