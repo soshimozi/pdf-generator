@@ -10,6 +10,7 @@ let port = process.env.NODE_PORT || 3000;
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
+
 app.use(bodyParser.urlencoded({extended: false}));
 
 app.set('views', __dirname + '/views');
@@ -23,12 +24,18 @@ app.post('/pdf', function(request,response) {
     response.setHeader('Content-type', 'application/pdf');
     response.setHeader('Access-Control-Allow-Origin', '*');
     
-    // Header to force download
-    var filename = request.body.title;
-    if(path.extname(filename) === '')
-        filename = path.join(filename, '.pdf');
 
-    //response.setHeader('Content-disposition', 'attachment; filename='+filename);
+    // if(request.body.download) {
+    //     // Header to force download
+    //     var filename = request.body.title;
+    //     if(path.extname(filename) === '')
+    //         filename = path.join(filename, '.pdf');
+
+    //     console.log('downloading file: ', filename)
+
+        
+    //     response.setHeader('Content-disposition', 'attachment; filename='+filename);
+    // }
     
 
     pdf.create(request.body.text).toBuffer(function(err, buffer) {

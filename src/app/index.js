@@ -9,6 +9,7 @@ import '../../node_modules/bootstrap/dist/css/bootstrap';
 import '../../node_modules/bootstrap/dist/css/bootstrap-theme';
 import '../../node_modules/font-awesome/css/font-awesome.css';
 import './styles/app.css';
+import './styles/pdf-styles.css';
 
 const app = angular.module('test-pdf-generation-app', [
     'ngRoute',

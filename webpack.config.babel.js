@@ -5,6 +5,8 @@ import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ngAnnotatePlugin from 'ng-annotate-webpack-plugin';
 
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+
 export default function(env, argv) {
     return {
         context: path.resolve(__dirname, 'src/app'),
@@ -62,7 +64,14 @@ export default function(env, argv) {
             new ngAnnotatePlugin({
                 add: true,
                 // other ng-annotate options here
-            })
+            }),
+            new CopyWebpackPlugin([
+                // {output}/to/directory/file.txt
+                { from: 'index.html' },
+
+            ], {
+                copyUnmodified: true
+            })            
         ]
     }
 };

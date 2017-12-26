@@ -77,10 +77,19 @@
 			</div>	
 		</uib-tab>
 		<uib-tab index="3" heading="HTML Editor">
-			<div class="container-fluid">
+			<div class="container-fluid" style="margin-top:5px">
 				<div class="row">
-					<div class="col-lg-12">
- 						<ng-quill-editor ng-model="title" placeholder="override default placeholder" on-editor-created="editorCreated(editor)" on-content-changed="contentChanged(editor, html, text)" on-selection-changed="selectionChanged(editor, range, oldRange, source)"></ng-quill-editor>
+					<div class="col-lg-8">
+ 						<ng-quill-editor ng-model="vm.htmlText"></ng-quill-editor>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-8">
+						<div style="margin-bottom:5px;"></div>
+        				<pre><code id='code'>{{vm.htmlText}}</code></pre>						
+						<button class="btn" ngclipboard data-clipboard-target="#code">
+    						Copy To Clipboard
+						</button>
 					</div>
 				</div>
 			</div>
