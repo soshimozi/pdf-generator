@@ -5,15 +5,18 @@ const pdf = require('html-pdf');
 const path = require('path');
 const logger = require('morgan');
 
+
+let port = process.env.NODE_PORT || 3000;
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
+
 app.use(bodyParser.urlencoded({extended: false}));
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
-app.use(express.static(path.join(__dirname, '../public')));
-app.use(express.static(path.join(__dirname, '../public/dist')));
+app.use(express.static(path.join(__dirname, '../www')));
 
 app.post('/pdf', function(request,response) {
     
@@ -21,12 +24,18 @@ app.post('/pdf', function(request,response) {
     response.setHeader('Content-type', 'application/pdf');
     response.setHeader('Access-Control-Allow-Origin', '*');
     
-    // Header to force download
-    var filename = request.body.title;
-    if(path.extname(filename) === '')
-        filename = path.join(filename, '.pdf');
 
-    //response.setHeader('Content-disposition', 'attachment; filename='+filename);
+    // if(request.body.download) {
+    //     // Header to force download
+    //     var filename = request.body.title;
+    //     if(path.extname(filename) === '')
+    //         filename = path.join(filename, '.pdf');
+
+    //     console.log('downloading file: ', filename)
+
+        
+    //     response.setHeader('Content-disposition', 'attachment; filename='+filename);
+    // }
     
 
     pdf.create(request.body.text).toBuffer(function(err, buffer) {
@@ -78,6 +87,6 @@ app.use(function(err, req, res, next) {
     }
 });
 
-app.listen(3000, function () {
-    console.log('Example app listening on port 3000!')
+app.listen(port, function () {
+    console.log('Example app listening on port ' + port + '!')
   });

@@ -1,0 +1,16 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /pdf-generator
+permissions:
+  - object: /pdf-generator/startApp.sh
+    mode: 777
+  - object: /pdf-generator/stopApp.sh
+    mode: 777
+hooks:
+  ApplicationStart:
+    - location: stopApp.sh
+      timeout: 10
+    - location: startApp.sh
+      timeout: 10

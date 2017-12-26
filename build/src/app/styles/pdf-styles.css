@@ -1,46 +1,4 @@
-export default class {
-    constructor($location, $http, $sce, $timeout, $uibModal) {
-        this.$location = $location;
-        this.$http = $http;
-	    this.$sce = $sce;
-        this.$timeout = $timeout;
-        this.$uibModal = $uibModal;
-
-        this.pdfText = "";
-        this.pdfTitle = "";
-        this.content = null;
-        this.jsonText = "";
-        this.jsonObject = null;
-        this.alerts = [];
-
-        this.toolbarOptions = [
-        ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-        ['blockquote', 'code-block'],
-
-        [{ 'header': 1 }, { 'header': 2 }],               // custom button values
-        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-        [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
-        [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
-        [{ 'direction': 'rtl' }],                         // text direction
-
-        [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-
-        [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-        [{ 'font': [] }],
-        [{ 'align': [] }],
-        
-        ['link', 'image'],
-
-        ['formula'],
-        
-        ['clean']                                         // remove formatting button
-        ];
-    }
-
-    submit() {
-
-        let styles = `/*!
+/*!
  * Quill Editor v1.2.0
  * https://quilljs.com/
  * Copyright (c) 2014, Jason Chen
@@ -105,6 +63,9 @@ export default class {
 .ql-editor ul > li {
   list-style-type: none;
 }
+.ql-editor ul > li::before {
+  content: '\25CF';
+}
 .ql-editor ul[data-checked=true],
 .ql-editor ul[data-checked=false] {
   pointer-events: none;
@@ -114,6 +75,12 @@ export default class {
   color: #777;
   cursor: pointer;
   pointer-events: all;
+}
+.ql-editor ul[data-checked=true] > li::before {
+  content: '\2611';
+}
+.ql-editor ul[data-checked=false] > li::before {
+  content: '\2610';
 }
 .ql-editor li::before {
   display: inline-block;
@@ -934,75 +901,4 @@ export default class {
 }
 .ql-container.ql-snow {
   border: 1px solid #ccc;
-}`;
-        var text = `<!DOCTYPE html>
-        <html>
-        <head>   
-            <style>${styles}</style>
-        </head>
-        <body>
-            <div class="ql-snow">
-                <div class="ql-editor">
-                    ${this.pdfText}
-                </div>
-            </div>
-        </body>
-        </html>`;
-
-
-        var postData = {
-            text: text
-        };
-
-        this.$http.post("/pdf", postData, {responseType:'arraybuffer'}).then( (response) => {
-            var file = new Blob([response.data], {type: 'application/pdf'});
-            var fileURL = URL.createObjectURL(file, 'myfile');
-
-            this.active = 1;
-            this.content = this.$sce.trustAsResourceUrl(fileURL);
-        });		
-    }
-
-    closeAlert(index) {
-        this.alerts.splice(index, 1);
-    }
-
-    convertJson() {
-        try {
-        this.jsonObject = JSON.parse(this.jsonText);
-        }
-        catch(error) {
-            this.alerts.push({msg: 'Could not parse JSON object.', type:'danger'});
-        }
-        // TODO: error checking
-
-        for(var key in this.jsonObject) {
-            console.log(key + ': ', typeof(this.jsonObject[key]));
-        }
-    }
-
-    clipboardCopiedSuccess(e) {
-        this.alerts.push( {msg: 'Copied data successfully to clipboard', type:'success'})
-    }    
-
-    showJsonHelper() {
-        this.$uibModal.open({
-            animation: true,
-            ariaLabelledBy: 'modal-title-top',
-            ariaDescribedBy: 'modal-body-top',
-            template: require('../../templates/modals/jsonHelper'),
-            size: 'lg',
-            controllerAs: 'vm',
-            controller: class  {
-                constructor() {
-                    this.jsonText = '';
-                    this.jsonObject = null;
-                }
-              
-                convertJson() {
-                  this.jsonObject = JSON.parse(this.jsonText)
-                }
-            }
-          });
-    }
 }
