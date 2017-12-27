@@ -1,0 +1,49 @@
+
+<!-- form.html -->
+<div class="row">
+<div class="col-sm-10 col-sm-offset-1">
+
+    <div id="form-container">
+
+        <div class="page-header text-center">
+            <h2>Let's Make a PDF!!</h2>
+
+            <!-- the links to our nested states using relative paths -->
+            <!-- add the active class if the state matches our ui-sref -->
+            <!--<div id="status-buttons" class="text-center">
+                <div class="box">
+                    <a ui-sref-active="active" ui-sref=".profile"><span>1</span> Profile</a>
+                    <div class="hr-line"><hr></div>
+                    <a ui-sref-active="active" ui-sref=".interests"><span>2</span> Interests</a>
+                    <div class="hr-line"><hr></div>
+                    <a ui-sref-active="active" ui-sref=".payment"><span>3</span> Payment</a>
+                </div>               
+            </div>-->
+
+            <div>
+                <h2 ng-show="selectedStep.wzHeadingTitle != ''">{{ selectedStep.wzHeadingTitle }}</h2>
+
+                <ul class="steps-indicator steps-{{vm.steps.length}}" ng-if="!vm.hideIndicators">
+                <li ng-class="{default: !step.completed && !step.selected, current: step.selected && !step.completed, done: step.completed && !step.selected, editing: step.selected && step.completed}" ng-repeat="step in vm.steps">
+                    <a ng-click="vm.goTo(step)">{{step.title || step.wzTitle}}</a>
+                </li>
+                </ul>
+            </div>            
+        </div>
+
+        <!-- use ng-submit to catch the form submission and use our Angular function -->
+        <form id="pdf-form" ng-submit="vm.processForm()">
+
+            <!-- our nested state views will be injected here -->
+            <div id="form-views" ui-view></div>
+        </form>
+
+    </div>
+
+    <!-- show our formData as it is being typed -->
+    <pre>
+        {{ formData }}
+    </pre>
+
+</div>
+</div>
