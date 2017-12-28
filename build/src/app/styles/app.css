@@ -3,9 +3,9 @@ body {
 }
 
 /* form styling */
-#form-container                { background:#2f2f2f; margin-bottom:20px;
+#form-container                { margin-bottom:20px;
     border-radius:5px; }
-#form-container .page-header   { background:#151515; margin:0; padding:30px; 
+#form-container .page-header   { margin:0; padding:30px; 
     border-top-left-radius:5px; border-top-right-radius:5px; }
 
 /* numbered buttons */
@@ -77,28 +77,6 @@ body {
 }
 
 
-.box { 
-  display:-moz-flex;
-  display:-webkit-flex;
-  display:-ms-flex;
-  display:flex;
-  width:50%;
-  margin-left:25%;
-}
-
-hr {
-  /*border: .5px solid #000;*/
-  margin-left: 10px;
-  margin-right: 10px;
-}
-
-.hr-line {
-  -moz-flex: 1;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
- }
-
 .loader-div {
     position: fixed;
     top: 0;
@@ -117,11 +95,6 @@ hr {
     margin-left: -32px; /* -1 * image width / 2 */
     margin-top: -32px; /* -1 * image height / 2 */
     display: block;
-}
-
-.pdf-text {
-    min-width: 400px;
-    min-height: 200px;    
 }
 
 ng-quill-editor.ng-invalid .ql-container {
@@ -146,4 +119,5 @@ ng-quill-editor { display: block; }
 .ql-container.ql-snow {
     background-color: white;
 }
+
 

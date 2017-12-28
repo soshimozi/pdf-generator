@@ -1,7 +1,11 @@
 @wz-color-default: #E6E6E6;
-@wz-color-current: #808080;
-@wz-color-done:    #339933;
-@wz-color-editing: #FF0000;
+@wz-color-current: #2A9FD6;
+@wz-color-done:    #77B300;;
+@wz-color-editing: #d97400;
+
+@wz-color-text: #808080;
+
+@wz-step-inidcator: #333;
 
 .steps-indicator {
   /* ---- steps quantity ---- */
@@ -18,7 +22,7 @@
 
 
   &:before {
-    background-color: @wz-color-default;
+    background-color: @wz-step-inidcator;
     content: '';
     position: absolute;
     height: 1px;
@@ -87,7 +91,7 @@
     line-height: 15px;
 
     a {
-      color: @wz-color-current;
+      color: @wz-color-text;
       text-decoration: none;
       text-transform: uppercase;
       font-weight: bold;
@@ -107,7 +111,7 @@
       }
 
       &:hover {
-        color: darken(@wz-color-current, 20%);
+        color: darken(@wz-color-text, 20%);
       }
     }
   }
@@ -157,6 +161,7 @@
 
     a:hover {
       color: @wz-color-current;
+      border: black;
     }
   }
 

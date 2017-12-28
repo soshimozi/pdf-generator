@@ -3,36 +3,36 @@ const stateFunction = function($stateProvider, $urlRouterProvider) {
     $stateProvider
 
         // route to show our basic form (/form)
-        .state('form', {
-            url: '/form',
-            template: require('../templates/forms/main-form'),
-            controller: 'formController',
+        .state('wizard', {
+            url: '/wizard',
+            template: require('../templates/forms/wizard-form'),
+            controller: 'WizardController',
             controllerAs: 'vm'
         })
 
         // nested states 
         // each of these sections will have their own view
         // url will be nested (/form/profile)
-        .state('form.profile', {
+        .state('wizard.profile', {
             url: '/profile',
-            template: require('../templates/forms/form-profile')
+            template: require('../templates/forms/wizard-profile')
         })
 
         // url will be /form/interests
-        .state('form.interests', {
-            url: '/interests',
-            template: require('../templates/forms/form-interests')
+        .state('wizard.editor', {
+            url: '/editor',
+            template: require('../templates/forms/wizard-editor')
         })
 
         // url will be /form/payment
-        .state('form.payment', {
-            url: '/payment',
-            template: require('../templates/forms/form-payment')
+        .state('wizard.download', {
+            url: '/download',
+            template: require('../templates/forms/wizard-download')
         });
 
     // catch all route
     // send users to the form page 
-    $urlRouterProvider.otherwise('/form/profile');
+    $urlRouterProvider.otherwise('/wizard/profile');
 }
 
 module.exports = stateFunction;

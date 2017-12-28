@@ -6,12 +6,14 @@ require('ngclipboard');
 require('angular-animate');
 require('angular-formly');
 require('angular-formly-templates-bootstrap');
+require('flux-angular');
 
 import '../../node_modules/font-awesome/css/font-awesome.css';
 import './styles/app.css';
 import './styles/pdf-styles.css';
-import './styles/wizard-steps.css';
 import './styles/angular-wizard.less';
+// import '../../node_modules/bootstrap/dist/css/bootstrap.css';
+// import '../../node_modules/bootstrap/dist/css/bootstrap-theme.css';
 
 import uiRouter from "@uirouter/angularjs";
 
@@ -22,14 +24,17 @@ const app = angular.module('test-pdf-generation-app', [
     'formly',
     'formlyBootstrap',
     'ngAnimate',
-    uiRouter
+    uiRouter,
+    'flux'
 ]);
 
 import MainController from './controllers/main-controller';
-import FormController from './controllers/form-controller';
+import WizardController from './controllers/wizard-controller';
+
+//import WizardService from './services/wizardservice';
 
 app.controller('MainController', MainController);
-app.controller('formController', FormController);
+app.controller('WizardController', WizardController);
 
 //app.config(require('./routes'));
 
@@ -50,3 +55,33 @@ app.component('ngQuillEditor', require('./components/ngQuilleditor')());
 
 app.constant('pdfStylesheet', require('./constants/pdf-stylesheet')());
 
+app.run(function($transitions) {
+  $transitions.onSuccess({ }, function(trans) {
+    var StateService = trans.injector().get('StateService');
+    StateService.changeStateName(trans.router.stateService.current.name);
+  });
+})
+
+app.store('StateStore', function () {
+  return {
+    initialize: function () {
+      this.state = this.immutable({
+        currentState: {
+          name: ''
+        }
+      });
+    },
+    handlers: {
+      CHANGE_STATE_NAME: 'changeStateName'
+    },
+    changeStateName: function(payload) {
+      this.state.set(['currentState', 'name'], payload.name);
+    },
+    exports: {
+      get state() {
+        return this.state.get('currentState');
+      }
+    }
+  };
+})
+.service('StateService', require('./services/stateservice'));

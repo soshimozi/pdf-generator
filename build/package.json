@@ -14,6 +14,7 @@
     "angular-ui-bootstrap": "^2.5.0",
     "api-check": "^7.5.5",
     "bootstrap": "^3.3.7",
+    "flux-angular": "^3.1.6",
     "font-awesome": "^4.7.0",
     "jquery": "^3.2.1",
     "ngclipboard": "^1.1.2",
@@ -42,7 +43,9 @@
     "maven": "^4.2.0",
     "morgan": "^1.9.0",
     "ng-annotate-webpack-plugin": "^0.2.1-pre",
+    "node-sass": "^4.7.2",
     "npm-run-all": "^4.1.1",
+    "sass-loader": "^6.0.6",
     "style-loader": "^0.19.0",
     "url-loader": "^0.6.2",
     "webpack": "^3.6.0"

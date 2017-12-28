@@ -1,0 +1,30 @@
+<!-- form-payment.html -->
+<div class="text-center">
+    <span class="glyphicon glyphicon-heart"></span>
+    <h3>Thanks For Using The Pdf Generator!</h3>
+
+    <div class="row from-group">
+        <label>Choose Your Method</label>
+    </div>
+
+    <div class="row form-group">
+        <div class="btn-group">
+            <label name="submitType" class="btn btn-primary" ng-model="vm.pdfModel.submitType" uib-btn-radio="'download'" ng-required="!vm.pdfModel.submitType">Download</label>
+            <label name="submitType" class="btn btn-primary" ng-model="vm.pdfModel.submitType" uib-btn-radio="'email'" ng-required="!vm.pdfModel.submitType">Email</label>
+        </div>
+    </div>
+    <span ng-show="pdfForm.submitType.$invalid">
+        <p class="text-info" ng-show="pdfForm.submitType.$error.required">Please tell us your name.</p>
+    </span>
+
+    <div class="row">
+        <button type="submit" class="btn btn-success">Get Your PDF</button>
+    </div>
+</div>
+
+
+
+<div class="row">
+    <pre>{{ vm.pdfModel }}</pre>
+</div>
+    
