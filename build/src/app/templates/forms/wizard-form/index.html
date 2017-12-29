@@ -1,0 +1,31 @@
+
+<!-- form.html -->
+<div class="row">
+<div class="col-sm-12">
+
+    <div id="form-container">
+
+        <div class="page-header text-center">
+            <h2>Let's Make a PDF!!</h2>
+
+            <div>
+                <h3 ng-show="vm.currentStep.title != ''">{{ vm.currentStep.title }}</h3>
+
+                <ul class="steps-indicator steps-{{vm.steps.length}}" ng-if="!vm.hideIndicators">
+                <li ng-class="{default: !step.completed && !step.selected, current: step.selected && !step.completed, done: step.completed && !step.selected, editing: step.selected && step.completed}" ng-repeat="step in vm.steps">
+                    <a ng-click="vm.goTo(step)">{{step.title || step.wzTitle}}</a>
+                </li>
+                </ul>
+            </div>            
+        </div>
+
+        <!-- use ng-submit to catch the form submission and use our Angular function -->
+        <form id="pdfForm" name="pdfForm" ng-submit="vm.processForm()">
+
+            <!-- our nested state views will be injected here -->
+            <div id="form-views" ui-view></div>
+        </form>
+
+    </div>
+</div>
+</div>

@@ -1,4 +1,2 @@
-export NODE_ENV=production
-export NODE_PORT=8080
-cd /pdf-generator/appserver
-node index.js start
+sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -               u ubuntu --hp /home/ubuntu
+pm2 start ecosystem.config.js
