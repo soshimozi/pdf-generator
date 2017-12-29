@@ -1,14 +1,17 @@
 export default class {
-    constructor($scope, $q, $state, $http, $log, StateStore) {
+    constructor($scope, $q, $state, $http, $log, StateStore, pdfStylesheet) {
         this.$q = $q;
         this.$state = $state;
         this.$scope = $scope;
         this.$http = $http;
         this.$log = $log;
+        this.pdfStylesheet = pdfStylesheet;
 
         this.pdfModel = {};
 
         this.steps = [];
+
+
 
         this.editorModules = {
             toolbar: [
@@ -55,8 +58,21 @@ export default class {
             });
         }
 
+        function canExitTitle() {
+            return $q(function(resolve, reject) {
+                $scope.pdfForm.title.$setDirty();
+
+                if($scope.pdfForm.title.$valid) {
+                    resolve(true);
+                } else {
+                    resolve(false);
+                }
+            });
+        }
+
         this.steps.push({state: "wizard.profile", title: "Profile", canexit: canExitProfile});
         this.steps.push({state:"wizard.editor", title: "Editor"});
+        this.steps.push({state:"wizard.title", title: "Title", canexit: canExitTitle});
         this.steps.push({state: "wizard.download", title: "Finish"});
 
         this.currentStep = this.steps[0];
@@ -220,12 +236,28 @@ export default class {
         console.log('process form');
 
         if(this.$scope.pdfForm.$valid) {
+            let styles = this.pdfStylesheet;
+            var text = `<!DOCTYPE html>
+            <html>
+            <head>   
+                <style>${this.pdfStylesheet}</style>
+            </head>
+            <body>
+                <div class="ql-snow">
+                    <div class="ql-editor">
+                        ${this.pdfModel.text}
+                    </div>
+                </div>
+            </body>
+            </html>`;
+
             // only proceed if we are valid
-            this.$http.post('/api/pdf', { method: this.pdfModel.submitType, title: 'test', data: this.pdfModel.text})
+            let postData = { method: this.pdfModel.submitType, title: this.pdfModel.title, data: text };
+            let config =  {responseType: 'arraybuffer'};
+
+            
+            this.$http.post('/api/pdf', postData, config)
                 .then( (response) => {
-                    console.log('data:', response.data)
-                    console.log('status:', response.status)
-                    console.log('headers:', response.headers)
 
                     let data = response.data;
 
@@ -238,6 +270,8 @@ export default class {
 
                     let $log = this.$log;
 
+                    console.log('headers:', headers);
+                    
                     // Get the filename from the x-filename header or default to "download.bin"
                     let filename = headers['x-filename'] || 'download.pdf';
  

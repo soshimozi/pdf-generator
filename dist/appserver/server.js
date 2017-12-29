@@ -45,6 +45,7 @@ app.post('/api/pdf', function(request,response) {
             response.setHeader('Content-type', 'application/pdf');
             response.setHeader('Access-Control-Allow-Origin', '*');
             response.setHeader('Content-disposition', 'attachment; filename='+filename);
+            response.setHeader('X-filename', filename);
             response.write(buffer);
             response.end();
         }
