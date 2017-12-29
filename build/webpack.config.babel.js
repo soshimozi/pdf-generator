@@ -41,10 +41,6 @@ export default function(env, argv) {
                     loader: ['style-loader', 'css-loader', 'less-loader']
                 },
                 {
-                    test: /\.scss?$/,
-                    loader: ['style-loader', 'css-loader', 'sass-loader']
-                },                
-                {
                     test: /\.js?$/,
                     exclude: /node_modules/,
                     use: [

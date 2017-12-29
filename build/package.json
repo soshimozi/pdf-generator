@@ -43,9 +43,7 @@
     "maven": "^4.2.0",
     "morgan": "^1.9.0",
     "ng-annotate-webpack-plugin": "^0.2.1-pre",
-    "node-sass": "^4.7.2",
     "npm-run-all": "^4.1.1",
-    "sass-loader": "^6.0.6",
     "style-loader": "^0.19.0",
     "url-loader": "^0.6.2",
     "webpack": "^3.6.0"
