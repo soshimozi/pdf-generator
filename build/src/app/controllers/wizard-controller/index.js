@@ -232,7 +232,7 @@ export default class {
                     let headers = response.headers();
 
                     let success = response.success;
-                    
+
                     let pdfStreamMime = 'application/pdf'
 
 
@@ -311,7 +311,7 @@ export default class {
                     if (!success) {
                         // Fallback to window.open method
                         $log.info("No methods worked for saving the arraybuffer, using last resort window.open");
-                        window.open(httpPath, '_blank', '');
+                        //window.open(httpPath, '_blank', '');
                     }                    
                 }, (error) => { console.log('error:', error) 
             });
