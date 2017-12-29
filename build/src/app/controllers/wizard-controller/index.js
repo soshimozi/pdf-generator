@@ -1,8 +1,10 @@
 export default class {
-    constructor($scope, $q, $state, StateStore) {
+    constructor($scope, $q, $state, $http, $log, StateStore) {
         this.$q = $q;
         this.$state = $state;
         this.$scope = $scope;
+        this.$http = $http;
+        this.$log = $log;
 
         this.pdfModel = {};
 
@@ -215,6 +217,104 @@ export default class {
     }
 
     processForm() {
-        console.log(this.$scope.pdfForm);
+        console.log('process form');
+
+        if(this.$scope.pdfForm.$valid) {
+            // only proceed if we are valid
+            this.$http.post('/api/pdf', { method: this.pdfModel.submitType, title: 'test', data: this.pdfModel.text})
+                .then( (response) => {
+                    console.log('data:', response.data)
+                    console.log('status:', response.status)
+                    console.log('headers:', response.headers)
+
+                    let data = response.data;
+
+                    let headers = response.headers();
+
+                    let success = response.success;
+                    
+                    let pdfStreamMime = 'application/pdf'
+
+
+                    let $log = this.$log;
+
+                    // Get the filename from the x-filename header or default to "download.bin"
+                    let filename = headers['x-filename'] || 'download.pdf';
+ 
+                    // Determine the content type from the header or default to "application/pdf"
+                    let contentType = headers['content-type'] || pdfStreamMime;
+
+ 
+                    try {
+                        // Try using msSaveBlob if supported
+                        var blob = new Blob([data], { type: contentType });
+                        if (navigator.msSaveBlob)
+                            navigator.msSaveBlob(blob, filename);
+                        else {
+                            // Try using other saveBlob implementations, if available
+                            var saveBlob = navigator.webkitSaveBlob || navigator.mozSaveBlob || navigator.saveBlob;
+                            if (saveBlob === undefined) throw "Not supported";
+                                saveBlob(blob, filename);
+                        }
+                        success = true;
+                    } catch (ex) {
+                        $log.info("saveBlob method failed with the following exception:");
+                        $log.info(ex);
+                    }
+ 
+                    if (!success) {
+                        // Get the blob url creator
+                        var urlCreator = window.URL || window.webkitURL || window.mozURL || window.msURL;
+                        if (urlCreator) {
+                            // Try to use a download link
+                            var link = document.createElement('a');
+                            if ('download' in link) {
+                                // Try to simulate a click
+                                try {
+                                    // Prepare a blob URL
+                                    var blob = new Blob([data], { type: contentType });
+                                    var url = urlCreator.createObjectURL(blob);
+                                    link.setAttribute('href', url);
+                                    
+                                    // Set the download attribute (Supported in Chrome 14+ / Firefox 20+)
+                                    link.setAttribute("download", filename);
+                                    
+                                    // Simulate clicking the download link
+                                    var event = document.createEvent('MouseEvents');
+                                    event.initMouseEvent('click', true, true, window, 1, 0, 0, 0, 0, false, false, false, false, 0, null);
+                                    link.dispatchEvent(event);
+                                    success = true;
+                                
+                                } catch (ex) {
+                                    $log.info("Download link method with simulated click failed with the following exception:");
+                                    $log.info(ex);
+                                }
+                            }
+ 
+                            if (!success) {
+                                // Fallback to window.location method
+                                try {
+                                    // Prepare a blob URL
+                                    // Use application/octet-stream when using window.location to force download
+                                    var blob = new Blob([data], { type: pdfStreamMime });
+                                    var url = urlCreator.createObjectURL(blob);
+                                    window.location = url;
+                                    success = true;
+                                } catch (ex) {
+                                    $log.info("Download link method with window.location failed with the following exception:");
+                                    $log.info(ex);
+                                }
+                            }
+                        }
+                    }   
+ 
+                    if (!success) {
+                        // Fallback to window.open method
+                        $log.info("No methods worked for saving the arraybuffer, using last resort window.open");
+                        window.open(httpPath, '_blank', '');
+                    }                    
+                }, (error) => { console.log('error:', error) 
+            });
+        }
     }
 }

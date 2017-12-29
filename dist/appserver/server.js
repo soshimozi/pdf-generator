@@ -18,27 +18,11 @@ app.set('view engine', 'ejs');
 
 app.use(express.static(path.join(__dirname, '../www')));
 
-app.post('/pdf', function(request,response) {
+app.post('/api/pdf', function(request,response) {
     
-    response.statusCode = 200;
-    response.setHeader('Content-type', 'application/pdf');
-    response.setHeader('Access-Control-Allow-Origin', '*');
-    
+    console.log(request.body);
 
-    // if(request.body.download) {
-    //     // Header to force download
-    //     var filename = request.body.title;
-    //     if(path.extname(filename) === '')
-    //         filename = path.join(filename, '.pdf');
-
-    //     console.log('downloading file: ', filename)
-
-        
-    //     response.setHeader('Content-disposition', 'attachment; filename='+filename);
-    // }
-    
-
-    pdf.create(request.body.text).toBuffer(function(err, buffer) {
+    pdf.create(request.body.data).toBuffer(function(err, buffer) {
 
         if(err) {
             console.log("error:",err);
@@ -46,8 +30,24 @@ app.post('/pdf', function(request,response) {
             response.write("Could not create pdf.");
             return response.end();
         }
-        response.write(buffer);
-        response.end();
+
+        if(request.body.method === 'download') {
+
+            // Header to force download
+            var filename = request.body.title;
+            if(path.extname(filename) === '')
+                filename = filename + '.pdf';
+
+            console.log('downloading file: ', filename)
+
+            
+            response.statusCode = 200;
+            response.setHeader('Content-type', 'application/pdf');
+            response.setHeader('Access-Control-Allow-Origin', '*');
+            response.setHeader('Content-disposition', 'attachment; filename='+filename);
+            response.write(buffer);
+            response.end();
+        }
     });
 });      
 
