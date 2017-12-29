@@ -1,2 +1,1 @@
-cd /pdf-generator/appserver
-node index.js stop
+pm2 stop pdfgenerator-api

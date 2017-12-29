@@ -1,10 +1,10 @@
 <!-- form-payment.html -->
 <div class="text-center">
     <span class="glyphicon glyphicon-heart"></span>
-    <h3>Thanks For Using The Pdf Generator!</h3>
+    <h3>Thank You For Using The Pdf Generator!</h3>
 
     <div class="row from-group">
-        <label>Choose Your Method</label>
+        <label>Choose Your Delivery Method</label>
     </div>
 
     <div class="row form-group">
@@ -14,17 +14,19 @@
         </div>
     </div>
     <span ng-show="pdfForm.submitType.$invalid">
-        <p class="text-info" ng-show="pdfForm.submitType.$error.required">Please tell us your name.</p>
+        <p class="text-info" ng-show="pdfForm.submitType.$error.required">Please select a delivery method.</p>
+    </span>
+
+    <span ng-show="vm.pdfModel.submitType === 'download'">
+        <p class="text-success">Great!  You would like to download your pdf.  Go ahead and click the button below to start that process</p>
+    </span>
+
+    <span ng-show="vm.pdfModel.submitType === 'email'">
+        <p class="text-success">Awesome!  You would like us to send your pdf to {{ vm.pdfModel.email }}.  Go ahead and click the button below to start that process</p>
     </span>
 
     <div class="row">
         <button type="submit" class="btn btn-success">Get Your PDF</button>
     </div>
-</div>
-
-
-
-<div class="row">
-    <pre>{{ vm.pdfModel }}</pre>
 </div>
     

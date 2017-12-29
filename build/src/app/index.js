@@ -12,8 +12,10 @@ import '../../node_modules/font-awesome/css/font-awesome.css';
 import './styles/app.css';
 import './styles/pdf-styles.css';
 import './styles/angular-wizard.less';
-// import '../../node_modules/bootstrap/dist/css/bootstrap.css';
 // import '../../node_modules/bootstrap/dist/css/bootstrap-theme.css';
+
+//import '../../node_modules/bootswatch/dist/flatly/bootstrap.min.css'
+//import '../../node_modules/bootstrap/dist/css/bootstrap.css';
 
 import uiRouter from "@uirouter/angularjs";
 
