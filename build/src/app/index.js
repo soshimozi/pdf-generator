@@ -4,6 +4,7 @@ require('angular-route');
 require('angular-ui-bootstrap');
 require('jquery/dist/jquery');
 require('ngclipboard');
+// require('ng-table');
 
 import '../../node_modules/bootstrap/dist/css/bootstrap';
 import '../../node_modules/bootstrap/dist/css/bootstrap-theme';
@@ -14,7 +15,8 @@ import './styles/pdf-styles.css';
 const app = angular.module('test-pdf-generation-app', [
     'ngRoute',
     'ui.bootstrap',
-    'ngclipboard'
+    'ngclipboard',
+    'ngTable'
 ]);
 
 import MainController from './controllers/main-controller';
@@ -36,3 +38,4 @@ app.config(['ngQuillConfigProvider', function (ngQuillConfigProvider) {
 
 app.directive("ngLoader", require('./directives/ngLoader'));
 app.component('ngQuillEditor', require('./components/ngQuilleditor')());
+

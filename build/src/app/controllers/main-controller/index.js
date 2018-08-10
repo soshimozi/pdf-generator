@@ -1,8 +1,11 @@
+/* global NgTableParams */
+
 export default class {
-    constructor($location, $http, $sce, $timeout, $uibModal) {
+  
+    constructor($location, $http, $sce, $timeout, $uibModal, NgTableParams) {
         this.$location = $location;
         this.$http = $http;
-	    this.$sce = $sce;
+	      this.$sce = $sce;
         this.$timeout = $timeout;
         this.$uibModal = $uibModal;
 
@@ -12,6 +15,8 @@ export default class {
         this.jsonText = "";
         this.jsonObject = null;
         this.alerts = [];
+
+        this.NgTableParams = NgTableParams;
 
         this.toolbarOptions = [
         ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
@@ -969,13 +974,22 @@ export default class {
 
     convertJson() {
         try {
-        this.jsonObject = JSON.parse(this.jsonText);
+          this.jsonObject = JSON.parse(this.jsonText);
         }
         catch(error) {
             this.alerts.push({msg: 'Could not parse JSON object.', type:'danger'});
         }
-        // TODO: error checking
 
+        // get properties
+        var data = [];
+
+        for (var prop in this.jsonObject) {
+          data.push({"property": prop, "value": this.jsonObject[prop]});
+        }
+
+        this.tableParams = new this.NgTableParams({}, {dataset: data});
+
+        console.log(data);
         for(var key in this.jsonObject) {
             console.log(key + ': ', typeof(this.jsonObject[key]));
         }

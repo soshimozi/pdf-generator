@@ -58,9 +58,9 @@
 					</div>
 				</div>
 				<div class="row" ng-show="vm.jsonObject !== null" style="margin-top:5px;">
-					<div class="col-md-12">
-						<div style="background-color:darkslategray;color:white;width:100%;padding:5px;"><label>Results</label></div>
-						<table>
+					<div class="col-md-6">
+						<div style="background-color:darkslategray;color:white;width:100%;padding:5px;margin-bottom:10px;"><label>Results</label></div>
+						<!-- <table ng-table="vm.tableParams" show-filter="true">
 							<thead style="background-color:cadetblue;color:white;">
 								<th style="border:2px solid black;padding:5px;">Property</th>
 								<th style="border:2px solid black;padding:5px;">Value</th>
@@ -71,7 +71,19 @@
 									<td style="vertical-align: top;border: 2px solid;padding:5px;word-break: break-all;"><span ng-attr-id="{{'json' + key}}">{{value}}</span></td>
 								</tr>
 							</tbody>
-						</table>
+						</table> -->
+						<table ng-table="vm.tableParams" class="table table-condensed table-bordered table-hover" show-filter="true">
+							<!-- <thead style="background-color:cadetblue;color:white;">
+								<th style="border:2px solid black;padding:5px;">Property</th>
+								<th style="border:2px solid black;padding:5px;">Value</th>
+							</thead>							 -->
+							<tr ng-repeat="row in $data track by $index">
+								<td title="'Property'" filter="{ property: 'text'}" sortable="'property'">
+									{{row.property}}</td>
+								<td title="'Value'" filter="{ value: 'text'}" sortable="'value'">
+									{{row.value}}</td>
+							</tr>
+						</table>						
 					</div>
 				</div>
 			</div>	
